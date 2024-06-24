@@ -1,0 +1,18 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="App\Monitors\Domain\Entity\Monitor" table="monitor_monitor">
+        <id name="uuid" type="string" length="36">
+            <generator strategy="NONE"/>
+        </id>
+        <field name="contract" type="string"/>
+        <field name="is_active" type="boolean"/>
+        <field name="sip_server" type="string"/>
+        <field name="settings" type="json">
+        <options>
+                <option name="default">[]</option>
+            </options>
+        </field>
+    </entity>
+</doctrine-mapping>
