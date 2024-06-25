@@ -6,6 +6,7 @@ namespace App\Monitors\Domain\Entity;
 
 use App\Share\Domain\Service\UuidService;
 
+
 class Monitor
 {
     private string $uuid;
@@ -13,9 +14,9 @@ class Monitor
 
     public function __construct(
         private readonly string $contract,
-        private readonly string $sip_server,
-        private readonly bool   $is_active,
-        private readonly array  $settings = [],
+        private string          $sip_server,
+        private bool            $is_active,
+        private array           $settings = [],
     )
     {
         $this->uuid = UuidService::generate();
@@ -44,5 +45,20 @@ class Monitor
     public function getSipServer(): string
     {
         return $this->sip_server;
+    }
+
+    public function setSipServer(string $sip_server): void
+    {
+        $this->sip_server = $sip_server;
+    }
+
+    public function setIsActive(bool $is_active): void
+    {
+        $this->is_active = $is_active;
+    }
+
+    public function setSettings(array $settings): void
+    {
+        $this->settings = $settings;
     }
 }

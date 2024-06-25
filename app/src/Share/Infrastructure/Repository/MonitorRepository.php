@@ -9,6 +9,7 @@ use App\Monitors\Domain\Repository\MonitorRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+
 class MonitorRepository extends ServiceEntityRepository implements MonitorRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
@@ -25,5 +26,11 @@ class MonitorRepository extends ServiceEntityRepository implements MonitorReposi
     public function getByUuid(string $uuid): ?Monitor
     {
         return $this->find($uuid);
+    }
+
+    public function delete(Monitor $monitor): void
+    {
+        $this->getEntityManager()->remove($monitor);
+        $this->getEntityManager()->flush();
     }
 }

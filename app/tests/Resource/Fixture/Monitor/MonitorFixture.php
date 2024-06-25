@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Resource\Fixture\Monitor;
 
+
 use App\Monitors\Domain\Factory\MonitorFactory;
 use App\Tests\Resource\Tool\FakerTools;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -17,7 +18,7 @@ class MonitorFixture extends Fixture
     {
     }
 
-    public const REFERENCE = 'monitor';
+    public const string REFERENCE = 'monitor';
 
     public function load(ObjectManager $manager): void
     {

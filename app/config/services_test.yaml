@@ -1,7 +1,15 @@
 services:
   _defaults:
     autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
   App\Tests\Resource\Fixture\:
     resource: '%kernel.project_dir%/tests/Resource/Fixture/*'
     tags:
       - { "name": 'doctrine.fixture.orm' }
+
+  App\Share\Infrastructure\Bus\CommandBus:
+    public: true
+
+  App\Share\Infrastructure\Bus\QueryBus:
+    public: true

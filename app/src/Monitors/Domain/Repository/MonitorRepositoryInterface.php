@@ -6,10 +6,13 @@ namespace App\Monitors\Domain\Repository;
 
 use App\Monitors\Domain\Entity\Monitor;
 
+
 interface MonitorRepositoryInterface
 {
     public function add(Monitor $monitor): void;
 
     public function getByUuid(string $uuid): ?Monitor;
+
+    public function delete(Monitor $monitor): void;
 
 }

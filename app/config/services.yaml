@@ -16,6 +16,15 @@ services:
     App\:
         resource: '../src/'
 
+    _instanceof:
+        App\Share\Application\Command\CommandHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: command.bus }
+
+        App\Share\Application\Query\QueryHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: query.bus }
+
     App\*\Domain\Factory\:
         namespace: App\
         public: true

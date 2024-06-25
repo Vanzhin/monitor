@@ -28,7 +28,7 @@ RUN set -xe \
         opcache \
         zip \
         pdo \
-        pdo_mysql \
+        pdo_pgsql \
         bcmath \
         sockets \
     && pecl install \
@@ -55,5 +55,5 @@ RUN rm /tmp/xdebug.ini
 COPY --from=composer:2.7.2 /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
-RUN mkdir -p /var/www/.composer && chown -R www-data /var/www/.composer
+#RUN mkdir -p /var/www/.composer && chown -R www-data /var/www/.composer
 #WORKDIR /app
