@@ -24,7 +24,7 @@ class CommandBus implements CommandBusInterface
         try {
             return $this->handle($command);
         } catch (HandlerFailedException $exception) {
-            throw $exception->getWrappedExceptions()[0];
+            throw current($exception->getWrappedExceptions());
         }
     }
 }

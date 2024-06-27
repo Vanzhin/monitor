@@ -8,7 +8,7 @@ namespace App\Monitors\Application\UseCase\Command\CreateMonitor;
 class CreateMonitorCommandResult
 {
     public function __construct(
-        public string $monitorId,
+        public string $monitor_id,
     )
     {
     }

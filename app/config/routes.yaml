@@ -7,3 +7,7 @@ controllers:
 kernel:
     resource: ../src/Share/Infrastructure/Kernel.php
     type: attribute
+
+monitors:
+    resource: ../src/Monitors/Infrastructure/Controller/
+    type: attribute
