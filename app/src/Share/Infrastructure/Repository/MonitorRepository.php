@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Share\Infrastructure\Repository;
 
-use App\Monitors\Domain\Entity\Monitor;
+use App\Monitors\Domain\Aggregate\Monitor\Monitor;
 use App\Monitors\Domain\Repository\MonitorRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

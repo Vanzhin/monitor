@@ -2,24 +2,33 @@
 declare(strict_types=1);
 
 
-namespace App\Monitors\Domain\Entity;
+namespace App\Monitors\Domain\Aggregate\Monitor;
 
+use App\Monitors\Domain\Aggregate\Monitor\Specification\MonitorSpecification;
 use App\Share\Domain\Service\UuidService;
 
 
 class Monitor
 {
     private string $uuid;
-
+    private array $settings = [];
+    private readonly string $contract;
+    private string $sip_server;
+    private bool $is_active;
 
     public function __construct(
-        private readonly string $contract,
-        private string          $sip_server,
-        private bool            $is_active,
-        private array           $settings = [],
+        string                                $contract,
+        string                                $sip_server,
+        bool                                  $is_active,
+        array                                 $settings,
+        private readonly MonitorSpecification $monitorSpecification,
     )
     {
         $this->uuid = UuidService::generate();
+        $this->contract = $contract;
+        $this->sip_server = $sip_server;
+        $this->is_active = $is_active;
+        $this->setSettings($settings);
     }
 
     public function getUuid(): string
@@ -60,5 +69,6 @@ class Monitor
     public function setSettings(array $settings): void
     {
         $this->settings = $settings;
+        $this->monitorSpecification->monitorSettingsSpecification->satisfy($this);
     }
 }

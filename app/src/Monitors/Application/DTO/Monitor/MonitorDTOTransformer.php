@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Monitors\Application\DTO\Monitor;
 
-use App\Monitors\Domain\Entity\Monitor;
+use App\Monitors\Domain\Aggregate\Monitor\Monitor;
 
 
 class MonitorDTOTransformer

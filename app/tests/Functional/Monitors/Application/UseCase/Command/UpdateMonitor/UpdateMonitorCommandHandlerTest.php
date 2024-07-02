@@ -4,7 +4,7 @@ namespace Functional\Monitors\Application\UseCase\Command\UpdateMonitor;
 
 use App\Monitors\Application\DTO\Monitor\MonitorDTO;
 use App\Monitors\Application\UseCase\Command\UpdateMonitor\UpdateMonitorCommand;
-use App\Monitors\Domain\Entity\Monitor;
+use App\Monitors\Domain\Aggregate\Monitor\Monitor;
 use App\Monitors\Domain\Factory\MonitorFactory;
 use App\Share\Application\Command\CommandBusInterface;
 use App\Tests\Resource\Fixture\Monitor\MonitorFixture;

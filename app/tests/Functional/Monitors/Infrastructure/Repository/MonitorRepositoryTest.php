@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Monitors\Infrastructure\Repository;
 
-use App\Monitors\Domain\Entity\Monitor;
+use App\Monitors\Domain\Aggregate\Monitor\Monitor;
 use App\Monitors\Domain\Factory\MonitorFactory;
 use App\Share\Infrastructure\Repository\MonitorRepository;
 use App\Tests\Resource\Fixture\Monitor\MonitorFixture;
-use App\Tests\Resource\Fixtures\UserFixture;
-use App\Users\Domain\Entity\User;
 use Faker\Factory;
 use Faker\Generator;
 use Liip\TestFixturesBundle\Services\DatabaseToolCollection;

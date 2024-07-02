@@ -4,7 +4,7 @@ namespace Functional\Monitors\Application\UseCase\Query\FindMonitor;
 
 use App\Monitors\Application\DTO\Monitor\MonitorDTO;
 use App\Monitors\Application\UseCase\Query\FindMonitor\FindMonitorQuery;
-use App\Monitors\Domain\Entity\Monitor;
+use App\Monitors\Domain\Aggregate\Monitor\Monitor;
 use App\Share\Application\Query\QueryBusInterface;
 use App\Tests\Resource\Fixture\Monitor\MonitorFixture;
 use Liip\TestFixturesBundle\Services\DatabaseToolCollection;

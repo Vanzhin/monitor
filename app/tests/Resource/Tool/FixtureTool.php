@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Resource\Tool;
 
-use App\Monitors\Domain\Entity\Monitor;
+use App\Monitors\Domain\Aggregate\Monitor\Monitor;
 use App\Tests\Resource\Fixture\Monitor\MonitorFixture;
 use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 use Liip\TestFixturesBundle\Services\DatabaseTools\AbstractDatabaseTool;

@@ -17,8 +17,8 @@ doctrine:
             Monitors:
                 type: xml
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Monitors/Infrastructure/Database/ORM'
-                prefix: 'App\Monitors\Domain\Entity'
+                dir: '%kernel.project_dir%/src/Monitors/Infrastructure/Database/ORM/Aggregate'
+                prefix: 'App\Monitors\Domain\Aggregate'
                 alias: Monitors
 
 when@prod:

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Monitors\Domain\Service;
 
-use App\Monitors\Domain\Entity\Monitor;
+use App\Monitors\Domain\Aggregate\Monitor\Monitor;
 use App\Monitors\Domain\Repository\MonitorRepositoryInterface;
 use Webmozart\Assert\Assert;
 

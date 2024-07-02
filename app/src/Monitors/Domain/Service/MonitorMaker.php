@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Monitors\Domain\Service;
 
-use App\Monitors\Domain\Entity\Monitor;
+use App\Monitors\Domain\Aggregate\Monitor\Monitor;
 use App\Monitors\Domain\Factory\MonitorFactory;
 use App\Monitors\Domain\Repository\MonitorRepositoryInterface;
 
@@ -22,7 +22,6 @@ final readonly class MonitorMaker
     {
         $monitor = $this->factory->create($contract, $sipServer, $isActive, $settings);
         $this->monitorRepository->add($monitor);
-
 
         return $monitor;
     }

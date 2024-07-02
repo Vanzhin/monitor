@@ -25,7 +25,7 @@ class QueryBus implements QueryBusInterface
         try {
             return $this->handle($query);
         } catch (HandlerFailedException $exception) {
-            throw $exception->getWrappedExceptions()[0];
+            throw current($exception->getWrappedExceptions());
         }
     }
 }
