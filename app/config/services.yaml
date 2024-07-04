@@ -24,6 +24,12 @@ services:
     App\Share\Application\Query\QueryHandlerInterface:
       tags:
         - { name: messenger.message_handler, bus: query.bus }
+#    App\Share\Application\Event\EventHandlerInterface:
+#      tags:
+#        - { name: messenger.message_handler, bus: event.bus }
+    App\Share\Application\Message\MessageHandlerInterface:
+      tags:
+        - { name: messenger.message_handler, transport: external_messages }
 
     App\Share\Domain\Specification\SpecificationInterface:
       public: true
