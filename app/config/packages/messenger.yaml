@@ -7,8 +7,8 @@ framework:
                 middleware:
                     - doctrine_transaction
             query.bus:
-#            event.bus:
-#                default_middleware: allow_no_handlers
+            message.bus:
+                default_middleware: allow_no_handlers
 #            external_message.bus: ~
 
 
@@ -39,15 +39,41 @@ framework:
                     queues:
                         service_dashboard_queue:
                             binding_keys: ['#']
+#                            arguments:
+#                                x-message-ttl: 1000
                     auto_setup: false
+            external_messages_to_forward:
+                dsn: '%env(EXTERNAL_MESSAGE_TRANSPORT_DSN)%'
+                serializer: App\Share\Infrastructure\Serializer\ExternalMessageToForwardSerializer
+                retry_strategy:
+                    max_retries: 3
+                    # milliseconds delay
+                    delay: 1000
+                    # causes the delay to be higher before each retry
+                    # e.g. 1 second delay, 2 seconds, 4 seconds
+                    multiplier: 2
+                    max_delay: 0
+                options:
+                    exchange:
+                        name: delivery-calls-dashboard-test-DEV
+                        type: topic
+                        default_publish_routing_key: '#'
+                    queues:
+                        service_dashboard_queue_test:
+                            binding_keys: [ 'test' ]
+                            arguments:
+                                x-message-ttl: 30000 # 30 sec
+                    auto_setup: true
+
 
 #                        queues:
 #                        messages_from_external:
 #                            binding_keys: [ from_external ]
-
         routing:
             # Route your messages to the transports
-#            'App\Share\Infrastructure\Message\ExternalMessage': external_messages
+            'App\Share\Infrastructure\Message\ExternalMessage': external_messages
+            'App\Share\Infrastructure\Message\ExternalMessageToForward': external_messages_to_forward
+
 
 # when@test:
 #    framework:

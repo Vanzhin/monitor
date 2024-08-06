@@ -29,7 +29,7 @@ services:
 #        - { name: messenger.message_handler, bus: event.bus }
     App\Share\Application\Message\MessageHandlerInterface:
       tags:
-        - { name: messenger.message_handler, transport: external_messages }
+        - { name: messenger.message_handler, transport: [external_messages, external_messages_to_forward] }
 
     App\Share\Domain\Specification\SpecificationInterface:
       public: true

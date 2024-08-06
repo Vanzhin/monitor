@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Share\Infrastructure\Serializer;
 
 use App\Share\Domain\Message\MessageInterface;
-use App\Share\Infrastructure\Message\ExternalMessage;
+use App\Share\Infrastructure\Message\ExternalMessageToForward;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Exception\MessageDecodingFailedException;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface as MessageSerializerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class ExternalMessageSerializer implements MessageSerializerInterface
+class ExternalMessageToForwardSerializer implements MessageSerializerInterface
 {
 
     public function __construct(private SerializerInterface $serializer)
@@ -21,13 +21,18 @@ class ExternalMessageSerializer implements MessageSerializerInterface
     #[\Override] public function decode(array $encodedEnvelope): Envelope
     {
         $body = $encodedEnvelope['body'];
+        $headers = $encodedEnvelope['headers'];
         try {
-            $message = $this->serializer->deserialize($body, ExternalMessage::class, 'json');
+            $message = $this->serializer->deserialize($body, ExternalMessageToForward::class, 'json');
         } catch (\Throwable $throwable) {
             throw new MessageDecodingFailedException($throwable->getMessage());
         }
+        $stamps = [];
+        if (!empty($headers['stamps'])) {
+            $stamps = unserialize($headers['stamps']);
+        }
 
-        return new Envelope($message);
+        return new Envelope($message, $stamps);
     }
 
     #[\Override] public function encode(Envelope $envelope): array
