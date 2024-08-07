@@ -24,7 +24,8 @@
         "symfony/serializer": "7.0.*",
         "symfony/uid": "7.0.*",
         "symfony/yaml": "7.0.*",
-        "webmozart/assert": "^1.11"
+        "webmozart/assert": "^1.11",
+        "ext-redis": "*"
     },
     "config": {
         "allow-plugins": {

@@ -24,12 +24,14 @@ services:
     App\Share\Application\Query\QueryHandlerInterface:
       tags:
         - { name: messenger.message_handler, bus: query.bus }
-#    App\Share\Application\Event\EventHandlerInterface:
-#      tags:
-#        - { name: messenger.message_handler, bus: event.bus }
+
+    App\Share\Application\Event\EventHandlerInterface:
+      tags:
+        - { name: messenger.message_handler, bus: event.bus }
+
     App\Share\Application\Message\MessageHandlerInterface:
       tags:
-        - { name: messenger.message_handler, transport: [external_messages, external_messages_to_forward] }
+        - { name: messenger.message_handler, transport: [ external_messages, external_messages_to_forward ] }
 
     App\Share\Domain\Specification\SpecificationInterface:
       public: true
@@ -45,3 +47,14 @@ services:
     public: true
     resource: '../src/*/Domain/Factory'
     exclude: '../src/Share/*'
+
+  App\Share\Domain\Service\RedisService:
+    arguments:
+      - '@app.service_redis_provider'
+
+  app.service_redis_provider:
+    class: \Redis
+    factory: [ 'Symfony\Component\Cache\Adapter\RedisAdapter', 'createConnection' ]
+    arguments:
+      - 'redis://%env(resolve:REDIS_HOST)%'
+      - { retry_interval: 2, timeout: 10 }

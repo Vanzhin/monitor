@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Monitors\Domain\Aggregate\Monitor;
 
 use App\Monitors\Domain\Aggregate\Monitor\Specification\MonitorSpecification;
+use App\Monitors\Domain\Event\MonitorSavedEvent;
 use App\Share\Domain\Service\UuidService;
+use App\Share\Domain\Aggregate\Aggregate;
 
 
-class Monitor
+class Monitor extends Aggregate
 {
     private string $uuid;
     private array $settings = [];
@@ -29,6 +31,7 @@ class Monitor
         $this->sip_server = $sip_server;
         $this->is_active = $is_active;
         $this->setSettings($settings);
+        $this->raise(new MonitorSavedEvent($this->getId()));
     }
 
     public function getUuid(): string
@@ -70,5 +73,10 @@ class Monitor
     {
         $this->settings = $settings;
         $this->monitorSpecification->monitorSettingsSpecification->satisfy($this);
+    }
+
+    #[\Override] public function getId(): string
+    {
+        return $this->uuid;
     }
 }
