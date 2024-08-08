@@ -22,10 +22,10 @@ class MonitorSettingsSpecification implements SpecificationInterface
         }
         if (!is_array($monitor->getSettings()['phone_numbers'])) {
             throw new \Exception('Phone numbers array required.');
-
         }
         foreach ($monitor->getSettings()['phone_numbers'] as $number) {
-            AssertService::regex($number, "/^\d{10,17}$/", sprintf('Invalid phone number: %s.', $number));
+            AssertService::regex($number, "/^(?!810)[1-9]\d{8,14}$/", sprintf('Invalid phone number: %s.', $number));
         }
+        AssertService::uniqueValues($monitor->getSettings()['phone_numbers'], 'Phone numbers duplication.');
     }
 }

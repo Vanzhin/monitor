@@ -30,14 +30,14 @@ class UpdateMonitorCommandHandlerTest extends WebTestCase
         $referenceRepository = $this->databaseTool->loadFixtures([MonitorFixture::class])->getReferenceRepository();
         /** @var Monitor $monitor */
         $monitor = $referenceRepository->getReference(MonitorFixture::REFERENCE);
-
         $contract = $this->faker->numerify('00####');
         $sipName = $this->faker->numerify('sip##');
         $isActive = $this->faker->boolean(75);
 
         $setting = [];
-        foreach ($this->faker->words(4) as $word) {
-            $setting[$word] = $this->faker->word();
+        $setting['has_inner_calls'] = $this->faker->boolean(10);
+        for ($i = 1; $i <= $this->faker->numberBetween(1, 6); $i++) {
+            $setting['phone_numbers'][] = '7912221' . $this->faker->numberBetween(1111, 9999);
         }
         $monitorDTO = new MonitorDTO();
         $monitorDTO->is_active = $isActive;
@@ -47,7 +47,6 @@ class UpdateMonitorCommandHandlerTest extends WebTestCase
 
         // act
         $command = new UpdateMonitorCommand($monitor->getUuid(), $monitorDTO);
-
         $result = $this->commandBus->execute($command);
 
         // assert

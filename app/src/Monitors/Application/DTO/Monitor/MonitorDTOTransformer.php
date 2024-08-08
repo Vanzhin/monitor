@@ -15,6 +15,7 @@ class MonitorDTOTransformer
         $dto->contract = $monitor->getContract();
         $dto->is_active = $monitor->isActive();
         $dto->sip_server = $monitor->getSipServer();
+        $dto->uuid_contract = $monitor->getUuidContract();
         //потом будет отдельный объект
         $dto->settings = $monitor->getSettings();
 

@@ -28,6 +28,11 @@ class MonitorRepository extends ServiceEntityRepository implements MonitorReposi
         return $this->find($uuid);
     }
 
+    public function getByUuidContract(string $uuidContract): ?Monitor
+    {
+        return $this->findOneBy(['uuid_contract' => $uuidContract]);
+    }
+
     public function delete(Monitor $monitor): void
     {
         $this->getEntityManager()->remove($monitor);

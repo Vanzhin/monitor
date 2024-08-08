@@ -13,6 +13,8 @@ interface MonitorRepositoryInterface
 
     public function getByUuid(string $uuid): ?Monitor;
 
+    public function getByUuidContract(string $uuidContract): ?Monitor;
+
     public function delete(Monitor $monitor): void;
 
 }

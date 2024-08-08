@@ -27,8 +27,9 @@ class MonitorFixture extends Fixture
         $isActive = $this->getFaker()->boolean(75);
 
         $setting = [];
-        foreach ($this->getFaker()->words(4) as $word) {
-            $setting[$word] = $this->getFaker()->word();
+        $setting['has_inner_calls'] = $this->getFaker()->boolean(10);
+        for ($i = 1; $i <= $this->getFaker()->numberBetween(1, 6); $i++) {
+            $setting['phone_numbers'][] = '7912221' . $this->getFaker()->numberBetween(1111, 9999);
         }
 
         $monitor = $this->monitorFactory->create($contract, $sipName, $isActive, $setting);

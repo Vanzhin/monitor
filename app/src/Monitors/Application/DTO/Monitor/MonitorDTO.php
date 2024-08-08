@@ -11,7 +11,7 @@ class MonitorDTO implements \JsonSerializable
     public ?bool $is_active;
     public ?string $sip_server;
     public ?array $settings;
-
+    public string $uuid_contract;
 
     #[\Override] public function jsonSerialize(): array
     {

@@ -10,9 +10,13 @@
         <field name="is_active" type="boolean"/>
         <field name="sip_server" type="string"/>
         <field name="settings" type="json">
-        <options>
+            <options>
                 <option name="default">[]</option>
             </options>
         </field>
+        <field name="uuid_contract" type="string" length="36"/>
+        <unique-constraints>
+            <unique-constraint fields="uuid_contract"/>
+        </unique-constraints>
     </entity>
 </doctrine-mapping>

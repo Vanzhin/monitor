@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Webmozart\Assert\InvalidArgumentException;
 
 class ExceptionListener
 {
@@ -28,14 +29,18 @@ class ExceptionListener
         if (self::MIME_JSON === $acceptHeader) {
             $exception = $event->getThrowable();
             $response = new JsonResponse();
-            $response->setData($this->exceptionToArray($exception));
+            if (!$this->isStatusCodeNotValid($exception->getCode())) {
+                $response->setStatusCode($exception->getCode());
+            }
 
+            $response->setData($this->exceptionToArray($exception));
             // HttpException содержит информацию о заголовках и статусе, используем это
             if ($exception instanceof HttpExceptionInterface) {
                 $response->setStatusCode($exception->getStatusCode());
-                $response->headers->replace($exception->getHeaders());
-            } else {
-                $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+                $response->headers->add($exception->getHeaders());
+            }
+            if ($exception instanceof InvalidArgumentException) {
+                $response->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
             }
 
             $event->setResponse($response);
@@ -62,5 +67,10 @@ class ExceptionListener
         }
 
         return $data;
+    }
+
+    private function isStatusCodeNotValid(int $statusCode): bool
+    {
+        return $statusCode < 100 || $statusCode >= 600;
     }
 }

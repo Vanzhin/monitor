@@ -18,9 +18,14 @@ final readonly class MonitorMaker
     {
     }
 
-    public function make(string $contract, string $sipServer, bool $isActive, array $settings): Monitor
+    public function make(
+        string  $contract,
+        string  $sipServer,
+        bool    $isActive,
+        array   $settings,
+        ?string $uuid_contract = null): Monitor
     {
-        $monitor = $this->factory->create($contract, $sipServer, $isActive, $settings);
+        $monitor = $this->factory->create($contract, $sipServer, $isActive, $settings, $uuid_contract);
         $this->monitorRepository->add($monitor);
 
         return $monitor;

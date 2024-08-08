@@ -17,6 +17,7 @@ class Monitor extends Aggregate
     private readonly string $contract;
     private string $sip_server;
     private bool $is_active;
+    private string $uuid_contract;
 
     public function __construct(
         string                                $contract,
@@ -24,6 +25,7 @@ class Monitor extends Aggregate
         bool                                  $is_active,
         array                                 $settings,
         private readonly MonitorSpecification $monitorSpecification,
+        ?string                               $uuid_contract = null,
     )
     {
         $this->uuid = UuidService::generate();
@@ -31,6 +33,8 @@ class Monitor extends Aggregate
         $this->sip_server = $sip_server;
         $this->is_active = $is_active;
         $this->setSettings($settings);
+        //todo хз, оставлю формирование $uuid_contract тут, потом выпилить
+        $this->setUuidContract();
         $this->raise(new MonitorSavedEvent($this->getId()));
     }
 
@@ -42,6 +46,16 @@ class Monitor extends Aggregate
     public function getSettings(): array
     {
         return $this->settings;
+    }
+
+    public function isIsActive(): bool
+    {
+        return $this->is_active;
+    }
+
+    public function getUuidContract(): string
+    {
+        return $this->uuid_contract;
     }
 
     public function getContract(): string
@@ -73,6 +87,12 @@ class Monitor extends Aggregate
     {
         $this->settings = $settings;
         $this->monitorSpecification->monitorSettingsSpecification->satisfy($this);
+    }
+
+    public function setUuidContract(string $uuid_contract = null): void
+    {
+        $this->uuid_contract = $uuid_contract ?? md5($this->sip_server . $this->contract);
+        $this->monitorSpecification->monitorUuidContractUniqueSpecification->satisfy($this);
     }
 
     #[\Override] public function getId(): string

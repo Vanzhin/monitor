@@ -14,10 +14,11 @@ readonly class MonitorFactory
     }
 
     public function create(
-        string $contract,
-        string $sip,
-        bool   $isActive = true,
-        ?array $setting = null
+        string  $contract,
+        string  $sip,
+        bool    $isActive = true,
+        ?array  $setting = null,
+        ?string $uuid_contract = null,
     ): Monitor
     {
         return new Monitor(
@@ -26,6 +27,7 @@ readonly class MonitorFactory
             $isActive,
             $setting,
             $this->monitorSpecification,
+            $uuid_contract
         );
 
     }

@@ -9,7 +9,8 @@ use App\Share\Domain\Specification\SpecificationInterface;
 class MonitorSpecification implements MonitorSpecificationInterface
 {
     public function __construct(
-        public MonitorSettingsSpecification $monitorSettingsSpecification,
+        public MonitorSettingsSpecification           $monitorSettingsSpecification,
+        public MonitorUuidContractUniqueSpecification $monitorUuidContractUniqueSpecification
     )
     {
     }

@@ -1,7 +1,7 @@
 services:
   _defaults:
     autowire: true      # Automatically injects dependencies in your services.
-    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+#    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
   App\Tests\Resource\Fixture\:
     resource: '%kernel.project_dir%/tests/Resource/Fixture/*'
@@ -12,4 +12,10 @@ services:
     public: true
 
   App\Share\Infrastructure\Bus\QueryBus:
+    public: true
+  App\Share\Infrastructure\Bus\EventBus:
+    public: true
+
+  App\Monitors\Domain\Factory\:
+    resource: '../src/Monitors/Domain/Factory'
     public: true

@@ -25,13 +25,16 @@ class CreateMonitorCommandHandlerTest extends WebTestCase
         $isActive = $this->faker->boolean(75);
 
         $setting = [];
-        foreach ($this->faker->words(4) as $word) {
-            $setting[$word] = $this->faker->word();
+        $setting['has_inner_calls'] = $this->faker->boolean(70);
+
+        for ($i = 1; $i <= $this->faker->numberBetween(1, 6); $i++) {
+            $setting['phone_numbers'][] = '7912221' . $this->faker->numberBetween(1111, 9999);
         }
+
         $command = new CreateMonitorCommand($contract, $sipName, $isActive, $setting);
 
         $result = $this->commandBus->execute($command);
-        $monitor = $this->repository->getByUuid($result->monitorId);
+        $monitor = $this->repository->getByUuid($result->monitor_id);
         $this->assertNotEmpty($monitor);
     }
 }
